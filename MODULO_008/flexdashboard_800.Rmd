@@ -1,0 +1,43 @@
+---
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+
+##
+
+###
+
+```{r}
+valueBox(1.5,icon = 'fa-eye')
+```
+
+
+###
+
+```{r}
+valueBox(8.9,icon = 'fa-ruler')
+```
+
+
+###
+
+```{r}
+valueBox(1.5,icon = 'fa-eye')
+```
+
+##
+
+###
+
+###
+
+##
+
+###

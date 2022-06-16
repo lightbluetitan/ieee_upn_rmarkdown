@@ -1,0 +1,75 @@
+---
+title: "Diagrama de Barras - Bar Charts"
+author: "Renzo Cáceres Rossi"
+date: "2021/11/05"
+subtitle: Sintaxis RMarkdown - Código R
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<!-- Añadir comentario a nuestro documento RMarkdown usando HTML tags -->
+
+## Diagrama de Barras - Bar Charts
+
+El diagrama de barras (**Bar Chart**[^pie_pagina_01]) es un gráfico estadístico que nos permite representar la distribución de frecuencias de variables cualitativas y cuantitativas discretas, nuestro objetivo es pasar del lápiz y papel al uso del lenguaje de programación `r R.version.string` y su entorno de desarrollo (IDE) RStudio en su versión `r rstudioapi::versionInfo()$version `, compartimos con ustedes la siguiente imagen.
+
+<center>
+![](C:\Users\renzocrossi\Documents\A-RStudioLAB\presentacion_RMarkdown\diagrama_barras_amano.jpg)
+</center>
+
+## Data Set - mtcars
+
+***mtcars*** en un data set muy popular que ya viene precargado en el lenguaje de programación R, nos enfocaremos en la variable cyl (**cilindro**) para la creación del gráfico estadístico líneas arriba mencionado.
+
+```{r mtcars}
+summary(mtcars)
+
+summary(mtcars$cyl)
+
+# La función summary() nos proporciona un resumen estadístico del data set y la variable
+
+```
+
+
+## Diagrama de Barras - barplot()
+
+La función `barplot()` nos permite crear diagramas de barras (**Bar Charts**) en el lenguaje de programación R, como se muestra a continuación.
+
+```{r barplot,fig.align='center'}
+x <- table(mtcars$cyl)
+
+colores <- c("orange","blue","purple")
+
+barplot(x,xlab="Cilindros",ylab="Frecuencias",main="Número de Cilindros",col=colores)
+
+# barplot() es una función base del lenguaje de programación R
+```
+
+## Diagrama de Barras - ggplot2
+
+El paquete ***ggplot2*** nos permite crear gráficos estadísticos de gran calidad en el lenguaje de programación R, haremos uso de dicha lilbrería para crear un diagrama de barras (**Bar Chart**) haciendo uso del data set **mtcars**, como se muestra a continuación.
+
+```{r ggplot,fig.align='center'}
+
+library(ggplot2)
+
+ggplot(mtcars,aes(cyl)) + geom_bar(fill=colores) + labs(x="Cilindros",y="Frecuencias",title="Número de Cilindros") + theme_dark()
+
+```
+
+## Diagrama de Barras - lattice
+
+**Lattice** es un paquete que nos permite crear gráficos estadísticos de muy buena calidad en el lenguaje de programación R, haremos uso de dicho paquete para crear un diagrama de barras (**Bar Chart**) en el lenguaje de programación R, a partir del data set ***mtcars***, como se muestra a continuación.
+
+```{r lattice,fig.align='center'}
+
+library(lattice)
+
+barchart(x,xlab="Cilindros",ylab="Frecuencias",main="Número de Cilindros",col=colores,horizontal = FALSE)
+
+```
+
+
+[^pie_pagina_01]: **Un diagrama de barras, gráfico de barras o gráfico de columnas, es una forma de representar gráficamente un conjunto de datos o valores mediante barras rectangulares de longitud proporcional a los valores representados.**

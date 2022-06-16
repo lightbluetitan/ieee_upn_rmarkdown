@@ -1,0 +1,66 @@
+---
+title: "Presentaciones en RMarkdown"
+subtitle: "Usando el paquete Xaringan"
+author: "Renzo Cáceres Rossi"
+institute: "IEEE - UPN"
+date: "2022/05/20 (update: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+---
+
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/d/d0/RStudio_logo_flat.svg)
+
+```{r setup,include=FALSE}
+options(htmltools.dir.version= FALSE)
+```
+
+---
+class: middle,center
+
+# Xaringan
+
+![](xaringan_ojo.png)
+---
+
+class: middle,center
+
+# Introducción a Xaringan!!!
+
+---
+
+# Hola Xaringan
+
+Instala el paquete **Xaringan** para la creación de presentaciones en RMarkdown
+
+```{r eval=FALSE,tidy=FALSE}
+install.packages("xaringan")
+```
+
+--
+
+Recomendamos el uso de la última versión del entorno de desarrollo (IDE) [RStudio](https://www.rstudio.com/products/rstudio/)
+
+
+--
+
+Te mostramos la ruta para crear tu primer slide en Xaringan!!!
+
+`File --> New File --> RMarkdown --> Templates --> Ninja Presentation`
+
+
+--
+
+Click en Knit para compilar el código y crear la presentación con Xaringan!!!
+
+--
+
+Al instalar Xaringan, puede acceder al Add-in **Infinite Moon Reader**
+
+<center>
+
+![](moon_reader.png)
+

@@ -1,0 +1,39 @@
+---
+title: "Bar Charts"
+date: "`r Sys.Date()`"
+output:
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    theme: journal
+    social: menu
+    source: embed
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+
+library(RMySQL)
+
+city_table <- dbConnect(RMySQL::MySQL(),dbname='world',username='root',password='Limitless1978',host='localhost',port=3306)
+
+knitr::opts_chunk$set(echo = TRUE,connection="city_table")
+```
+
+##
+
+
+###
+
+```{sql connection=city_table,max.print=20}
+
+select * from city
+
+```
+
+
+
+##
+
+###
+

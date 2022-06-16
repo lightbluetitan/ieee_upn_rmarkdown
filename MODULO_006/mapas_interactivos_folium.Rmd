@@ -1,0 +1,219 @@
+---
+title: "Mapas Interactivos en Python"
+author: "Renzo Cáceres Rossi"
+date: '2022-05-07'
+subtitle: Folium - Leaflet
+output:
+  html_document:
+    self_contained: no
+    code_download: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{python,include=FALSE}
+import folium as fl
+
+import pandas as pd
+
+from folium.plugins import MiniMap
+
+from folium.plugins import FloatImage
+```
+
+
+## Mapa Base - Open Street Map
+
+```{python mapa_base,results='hide',collapse=TRUE}
+mapa_base = fl.Map()
+
+mapa_base
+```
+
+## Latitud - Longitud
+
+```{python, results='hide',collapse=TRUE}
+palacio_nacional = fl.Map(location=[18.47559892878191, -69.89774247032956],zoom_start=16)
+
+
+palacio_nacional
+```
+
+## Marcador - Círculo - Logo
+
+```{python,results='hide',collapse=TRUE}
+palacio_nacional = fl.Map(location=[18.47559892878191, -69.89774247032956],zoom_start=16)
+
+img_001 = "https://www.python.org/static/community_logos/python-powered-w-70x28.png"
+
+
+fl.Marker(location=[18.47559892878191, -69.89774247032956],
+          icon=fl.Icon(color="darkblue",icon="fire")).add_to(palacio_nacional)
+
+fl.Circle(location=[18.47559892878191, -69.89774247032956],
+          color="orange",fill_color="red",weight=4,raidus=40,fill_opacity=0.4).add_to(palacio_nacional)
+
+
+FloatImage(img_001,left=90,bottom=90).add_to(palacio_nacional)
+
+
+palacio_nacional.save("mapa_folium_003.html")
+
+palacio_nacional
+```
+
+
+## MiniMap - Tiles - Full Screen
+
+```{python,results='hide',collapse=TRUE}
+
+palacio_nacional = fl.Map(location=[18.47559892878191,-69.89774247032956],zoom_start=16,tiles="stamenterrain")
+
+img_001 = "python_logo.png"
+
+
+fl.Marker(location=[18.47559892878191, -69.89774247032956],
+          icon=fl.Icon(color="darkblue",icon="fire")).add_to(palacio_nacional)
+
+fl.Circle(location=[18.47559892878191, -69.89774247032956],
+          color="orange",fill_color="red",weight=4,raidus=40,fill_opacity=0.4).add_to(palacio_nacional)
+
+
+FloatImage(img_001,left=90,bottom=90).add_to(palacio_nacional)
+
+minimap = MiniMap(toggle_display=True,position="bottomleft",tile_layer="stamenterrain")
+
+minimap.add_to(palacio_nacional)
+
+
+palacio_nacional
+
+```
+
+## Menú Tiles
+
+```{python,results='hide',collapse=TRUE}
+from folium import plugins
+
+palacio_nacional = fl.Map(location=[18.47559892878191, -69.89774247032956],zoom_start=16)
+
+img_001 = "python_logo.png"
+
+
+fl.Marker(location=[18.47559892878191, -69.89774247032956],
+          icon=fl.Icon(color="darkblue",icon="fire")).add_to(palacio_nacional)
+
+fl.Circle(location=[18.47559892878191, -69.89774247032956],
+          color="orange",fill_color="red",weight=4,raidus=40,fill_opacity=0.4).add_to(palacio_nacional)
+
+
+FloatImage(img_001,left=90,bottom=90).add_to(palacio_nacional)
+
+
+plugins.Fullscreen(position="topleft").add_to(palacio_nacional)
+
+draw = plugins.Draw(export=True)
+
+
+fl.TileLayer("stamenterrain").add_to(palacio_nacional)
+
+fl.TileLayer("stamentoner").add_to(palacio_nacional)
+
+fl.TileLayer("stamenwatercolor").add_to(palacio_nacional)
+
+fl.TileLayer("cartodbpositron").add_to(palacio_nacional)
+
+fl.TileLayer("OpenStreetMap").add_to(palacio_nacional)
+
+fl.LayerControl(position="bottomright").add_to(palacio_nacional)
+
+
+
+palacio_nacional
+```
+
+
+
+## Popup - Configuración
+
+```{python,results='hide',collapse=TRUE}
+palacio_nacional = fl.Map(location=[18.47559892878191, -69.89774247032956],zoom_start=16)
+
+
+html='''
+<b>Lugar:Palacio Nacional R.Dom</b><br>
+<b>Latitud:18.47559892878191</b><br>
+<b>Longitud:-69.89774247032956</b><br>
+<b>Web:<a href='https://bit.ly/3hgCyg3' target='_blank'>Presidencia R.Dom</a>
+<br><br>
+<center><img src='https://bit.ly/36u5WNB' width=200 height=100></center>
+'''
+
+iframe = fl.IFrame(html=html,width=300,height=250)
+
+img_001 = "python_logo.png"
+
+
+fl.Marker(location=[18.47559892878191, -69.89774247032956],
+          icon=fl.Icon(color="darkblue",icon="fire"),popup=fl.Popup(iframe)).add_to(palacio_nacional)
+
+fl.Circle(location=[18.47559892878191, -69.89774247032956],
+          color="orange",fill_color="red",weight=4,raidus=40,fill_opacity=0.4,tooltip="Sede de Gobierno").add_to(palacio_nacional)
+
+
+FloatImage(img_001,left=90,bottom=90).add_to(palacio_nacional)
+
+
+plugins.Fullscreen(position="topleft").add_to(palacio_nacional)
+
+draw = plugins.Draw(export=True)
+
+
+fl.TileLayer("stamenterrain").add_to(palacio_nacional)
+
+fl.TileLayer("stamentoner").add_to(palacio_nacional)
+
+fl.TileLayer("stamenwatercolor").add_to(palacio_nacional)
+
+fl.TileLayer("cartodbpositron").add_to(palacio_nacional)
+
+fl.TileLayer("OpenStreetMap").add_to(palacio_nacional)
+
+fl.LayerControl(position="bottomright").add_to(palacio_nacional)
+
+palacio_nacional
+```
+
+## Múltiples Marcadores
+
+```{python}
+parque_independencia_alrededores = fl.Map(location=[18.471279222825007, -69.89206691553046],zoom_start=16)
+
+
+img_001 = "python_logo.png"
+
+text_001="<b>Iglesia Nuestra Señora de La Merced</b>"
+
+text_002="<b>Convento Regina Angelorum</b>"
+
+text_003="<b>Puerta de La Misericordia</b>"
+
+fl.Marker(location=[18.47416921486365, -69.88824745014279],
+          icon=fl.Icon(color="darkblue",icon="ok-sign"),popup=fl.Popup(text_001,max_width=250)).add_to(parque_independencia_alrededores)
+
+fl.Marker(location=[18.471116404923126, -69.8871531089362],
+          icon=fl.Icon(color="orange",icon="ok-sign"),popup=fl.Popup(text_002,max_width=200)).add_to(parque_independencia_alrededores)
+
+fl.Marker(location=[18.468775880481004, -69.89011426748678],
+          icon=fl.Icon(color="blue",icon="ok-sign"),popup=fl.Popup(text_003,max_width=200)).add_to(parque_independencia_alrededores)
+
+
+FloatImage(img_001,left=90,bottom=90).add_to(parque_independencia_alrededores)
+
+
+parque_independencia_alrededores
+```
+
+

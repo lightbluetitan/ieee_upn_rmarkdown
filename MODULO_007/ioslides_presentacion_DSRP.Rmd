@@ -1,0 +1,71 @@
+---
+title: "Bar Charts"
+author: "Renzo Cáceres Rossi"
+date: '2022-03-27'
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Data Set - mtcars
+
+***mtcars*** en un data set muy popular que ya viene precargado en el lenguaje de programación R, nos enfocaremos en la variable cyl (**cilindro**) para la creación del gráfico estadístico líneas arriba mencionado.
+
+```{r mtcars}
+summary(mtcars$cyl)
+
+summary(mtcars$gear)
+
+# La función summary() nos proporciona un resumen estadístico del data set y la variable
+
+```
+
+
+## Diagrama de Barras - barplot()
+
+La función `barplot()` nos permite crear diagramas de barras (**Bar Charts**) en el lenguaje de programación R, como se muestra a continuación.
+
+```{r barplot,fig.align='center',class.source="bg-success"}
+x <- table(mtcars$cyl)
+
+colores <- c("orange","blue","purple")
+
+barplot(x,xlab="Cilindros",ylab="Frecuencias",main="Número de Cilindros",col=colores)
+
+# barplot() es una función base del lenguaje de programación R
+```
+
+
+## Matplotlilb
+
+**Matplotlib** es una librería del lenguaje de programación Python, que nos permite crear gráficos estadísticos de gran calidad.
+
+```{python matplotlib,results='hide',collapse=TRUE,fig.align="center"}
+import matplotlib.pyplot as plt
+ 
+
+eje_x = ['Python', 'R', 'Node.js', 'PHP']
+ 
+
+eje_y = [50,20,35,47]
+ 
+
+plt.bar(eje_x, eje_y)
+ 
+
+plt.ylabel('Cantidad de usuarios')
+ 
+
+plt.xlabel('Lenguajes de programación')
+ 
+
+plt.title('Usuarios de lenguajes de programación')
+ 
+plt.show()
+```
+
+
+# Fin de la presentación
+

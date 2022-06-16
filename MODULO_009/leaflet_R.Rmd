@@ -1,0 +1,180 @@
+---
+title: "Mapas Interactivos en R"
+author: "Renzo Cáceres Rossi"
+date: "2022/03/02"
+subtitle: Paquete Leaflet
+output:
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+    theme: simplex
+    code_download: TRUE
+---
+
+<!-- Crear mapas interactivos en R haciendo uso del paquete Leaflet -->
+
+<style>
+
+.html-widget{
+
+    margin: auto;
+
+
+}
+</style>
+
+```{r setup,include=FALSE}
+
+library(leaflet)
+
+library(leafem)
+
+library(fontawesome)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Crear contenedor
+
+```{r}
+# Crear contenedor
+
+contenedor <- leaflet()
+
+contenedor
+```
+
+
+## Crear Mapa Base - Open Street Map
+
+```{r}
+# Crear Mapa Base - Open Street Map
+
+mapa_base <- leaflet() %>% 
+
+addTiles()
+
+mapa_base
+```
+
+
+## Lat - Lng - Marcador - Círculo
+
+```{r}
+# Ubicación - Latitud - Longitud - Marcadores - Círculo
+
+# Palacio Nacional de La República Dominicana 18.47474559888523, -69.89787861615132
+
+palacio_nacional <- leaflet() %>% 
+
+addTiles() %>% 
+
+addMarkers(lat=18.47474559888523,lng=-69.89787861615132) %>% 
+
+addCircleMarkers(lat=18.47474559888523,lng=-69.89787861615132,color="orange",radius=40)
+
+
+palacio_nacional
+```
+
+
+
+## MiniMapa - Logo
+
+```{r}
+
+# MiniMapa - Logo
+
+# Palacio Nacional de La República Dominicana 18.47474559888523, -69.89787861615132
+
+img <-"https://www.r-project.org/logo/Rlogo.svg"
+
+palacio_nacional <- leaflet() %>% 
+
+addTiles() %>% 
+
+leafem::addLogo(img,url="https://cran.r-project.org/",position="topright",width=25,height=25) %>% 
+
+addMarkers(lat=18.47474559888523,lng=-69.89787861615132) %>% 
+
+addCircleMarkers(lat=18.47474559888523,lng=-69.89787861615132,color="orange",radius=40) %>% 
+
+addMiniMap(position="bottomleft",toggleDisplay=TRUE)
+
+
+palacio_nacional
+```
+
+## Popup Setup
+
+```{r}
+# Popup configuración
+
+# Palacio Nacional de La República Dominicana 18.47474559888523, -69.89787861615132
+
+lugar_01 <- c("Palacio Nacional Rep. Dom")
+
+lat_01 <-c(18.47474559888523)
+
+lng_01 <-c(-69.89787861615132)
+
+url_01 <-paste0("<a href='https://bit.ly/3hgCyg3' target='_blank'>Web Palacio Nacional</a>")
+
+img_01 <- paste0("<center><img src='https://bit.ly/36u5WNB' width=200 height=100></center>")
+
+img <-"https://www.r-project.org/logo/Rlogo.svg"
+
+palacio_nacional <- leaflet() %>% 
+
+addTiles() %>% 
+
+leafem::addLogo(img,url="https://cran.r-project.org/",position="topright",width=25,height=25) %>% 
+
+addMarkers(lat=18.47474559888523,lng=-69.89787861615132,popup=paste(sep="<br>","<b>Lugar:</b>",lugar_01,"<b>Latitud:</b>",lat_01,"<b>Longitud:</b>",lng_01,"<b>URL:</b>",url_01,img_01)) %>% 
+  
+addCircleMarkers(lat=18.47474559888523,lng=-69.89787861615132,color="orange",radius=40) %>% 
+
+addMiniMap(position="bottomleft",toggleDisplay=TRUE)
+
+
+palacio_nacional
+```
+
+## Múltiples Marcadores - Caso I
+
+```{r}
+# Múltiples Marcadores
+
+cent_hist <- data.frame(lugar=c("Iglesia Nuestra Señora de La Merced","Convento Regina Angelorum","Puerta de la Misericordia"),latitud=c(18.47416921486365,18.471116404923126,18.468775880481004),    longitud=c(-69.88824745014279,-69.8871531089362,-69.89011426748678),               color=c("orange","blue","purple"))
+
+
+centro_historico <- leaflet(data=cent_hist) %>% 
+
+addTiles() %>%  
+
+addMarkers(lat=~latitud,lng=~longitud) %>% 
+
+addCircleMarkers(lat=~latitud,lng=~longitud,color=~color,radius=30)
+
+centro_historico
+```
+
+## Múltiples Marcadores - Caso II
+
+```{r}
+puntos <- read.csv("F:/DISCO3/Documents/python_folium/puntos_dom.txt")
+
+puntos_frame <- data.frame(puntos)
+
+centro_historico <- leaflet(data=puntos_frame) %>% 
+
+addTiles() %>%  
+
+addMarkers(lat=~latitud,lng=~longitud) %>% 
+
+addCircleMarkers(lat=~latitud,lng=~longitud,color=~color,radius=30)
+
+centro_historico
+```
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

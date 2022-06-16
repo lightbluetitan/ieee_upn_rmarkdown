@@ -1,0 +1,119 @@
+---
+title: "Bar Charts"
+author: "Renzo Cáceres Rossi"
+date: "2022/03/30"
+subtitle: RMarkdown - R & Python
+output:
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+    code_download: TRUE
+---
+
+```{r setup, include=FALSE}
+
+library(ggplot2)
+
+library(lattice)
+
+library(vembedr)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Bar Charts
+
+The bar chart (**BarChart**) is a statistical graph that allows us to represent the frequency distribution of discrete qualitative and quantitative variables, our goal is to move from pencil and paper to the use of  R programming language and Python. 
+
+<center>
+
+![](hand_made_barchart.jpg){width=400}
+
+</center>
+
+
+## Data Set - mtcars
+
+***mtcars*** in a very popular data set that is already preloaded in the R programming language, we will focus on the variable cyl (**cylinder**) for the creation of the statistical line graph mentioned above.
+
+```{r mtcars}
+summary(mtcars)
+
+summary(mtcars$cyl)
+
+```
+
+
+## Bar Charts - barplot()
+
+La función `barplot()` nos permite crear diagramas de barras (**Bar Charts**) en el lenguaje de programación R, como se muestra a continuación.
+
+```{r barplot,fig.align='center'}
+x <- table(mtcars$cyl)
+
+colors <- c("orange","blue","purple")
+
+barplot(x,xlab="Cylinders",ylab="Frequencies",main="Number of Cylinders",col=colors)
+
+
+```
+
+## Bar Charts - ggplot2
+
+The ***ggplot2*** package allows us to create high-quality statistical graphs in the R programming language, we will use this library to create a **Bar Chart**  using the data set **mtcars**, as shown below.
+
+```{r ggplot,fig.align='center'}
+
+library(ggplot2)
+
+ggplot(mtcars,aes(cyl)) + geom_bar(fill=colors) + labs(x="Cylinders",y="Frequencies",title="Number of Cylinders") + theme_dark()
+
+```
+
+## Bar Charts - lattice
+
+**Lattice** is a package that allows us to create high-quality statistical graphs in the R programming language. We will use this package to create a **Bar Chart**. 
+
+```{r lattice,fig.align='center'}
+
+library(lattice)
+
+barchart(x,xlab="Cylinders",ylab="Frequencies",main="NUmber of Cylinders",col=colors,horizontal = FALSE)
+```
+
+## Bar Charts -  Matplotlib
+
+**Matplotlib** is a Python library that allows us to create high quality statistical plots, we will focus on the variable cyl (**cylinders**) to create a bar plot.
+
+```{python matplotlib, results='hide',collapse=TRUE,fig.align="center"}
+import matplotlib.pyplot as plt
+
+x_axis=[4,6,8]
+
+y_axis=[11,7,14]
+
+colors=['orange','blue','purple']
+
+plt.bar(x_axis,height=y_axis,width=0.9,color=colors)
+
+
+plt.title("Number of Cylinders")
+
+plt.xlabel("Cylinders")
+
+plt.ylabel("Frequencies")
+
+plt.show()
+```
+
+
+## Tutorial - YouTube
+
+A continuación, presentamos un tutorial tomado de [YouTube](https://www.youtube.com) que muestra la configuración de Python en un documento RMarkdown
+
+```{r}
+embed_url("https://www.youtube.com/watch?v=gn8oJ8FMSWY&t=93s") %>% 
+  use_align("center")
+```
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>
